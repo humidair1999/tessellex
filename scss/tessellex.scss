@@ -1,5 +1,6 @@
 // mixins
 
+// https://github.com/mastastealth/sass-flex-mixin
 @mixin flexbox {
   display: -webkit-box;
   display: -webkit-flex;
@@ -33,12 +34,27 @@
   flex-basis: $value;
 }
 
+@mixin tx-generate-col-classes($col-class, $num-cols, $device-name: null) {
+  @for $i from 1 through $num-cols {
+    @if $device-name != null {
+      &#{$col-class}--#{$i}of#{$num-cols}--#{$device-name} { @include flex-basis(percentage($i / $num-cols)); }
+    }
+    @else {
+      &#{$col-class}--#{$i}of#{$num-cols} { @include flex-basis(percentage($i / $num-cols)); }
+    }
+  }
+}
+
+// variables and config
+
+$is-flexbox-enabled: true;
+
 // grid classes
 
 // TODO: should all grid components (container/row/col) be __?
 .tx {
   &__container {
-    width: 1024px;
+    max-width: 1024px;
     margin: 0 auto;
   }
 
@@ -51,28 +67,20 @@
   }
 
   &__col {
-    @include flex(1);
+    width: 100%;
 
-    &--1of6 { @include flex-basis(16.667%); }
-    &--2of6 { @include flex-basis(33.333%); }
-    &--3of6 { @include flex-basis(50%); }
-    &--4of6 { @include flex-basis(66.667%); }
-    &--5of6 { @include flex-basis(83.333%); }
-    &--6of6 { @include flex-basis(100%); }
+    &#{&}--auto {
+      @include flex(1);
+    }
+
+    @include tx-generate-col-classes(&, 6);
 
     @media (min-width: 600px) {
-      &--1of12--tablet { @include flex-basis(8.333%); }
-      &--2of12--tablet { @include flex-basis(16.667%); }
-      &--3of12--tablet { @include flex-basis(25%); }
-      &--4of12--tablet { @include flex-basis(33.333%); }
-      &--5of12--tablet { @include flex-basis(41.667%); }
-      &--6of12--tablet { @include flex-basis(50%); }
-      &--7of12--tablet { @include flex-basis(58.333%); }
-      &--8of12--tablet { @include flex-basis(66.667%); }
-      &--9of12--tablet { @include flex-basis(75%); }
-      &--10of12--tablet { @include flex-basis(83.333%); }
-      &--11of12--tablet { @include flex-basis(91.667%); }
-      &--12of12--tablet { @include flex-basis(100%); }
+      @include tx-generate-col-classes(&, 12, tablet);
+    }
+
+    @media (min-width: 1024px) {
+      @include tx-generate-col-classes(&, 12, desktop);
     }
   }
 
