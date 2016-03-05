@@ -1,0 +1,15 @@
+.tx-container {
+  width: 1024px;
+  margin: 0 auto; }
+.tx-row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+.tx-col {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1; }
+
+/*# sourceMappingURL=tessellex.css.map */

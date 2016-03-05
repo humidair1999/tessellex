@@ -1,0 +1,20 @@
+.tx {
+  &-container {
+    width: 1024px;
+    margin: 0 auto;
+  }
+
+  &-row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  &-col {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+  }
+}
