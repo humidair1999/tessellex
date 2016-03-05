@@ -9,7 +9,3 @@ html {
   -moz-box-sizing: inherit;
   box-sizing: inherit;
 }
-
-* {
-  border: 1px solid red !important;
-}
