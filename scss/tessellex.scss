@@ -35,21 +35,22 @@
 
 // grid classes
 
+// TODO: should all grid components (container/row/col) be __?
 .tx {
-  &-container {
+  &__container {
     width: 1024px;
     margin: 0 auto;
   }
 
-  &-row, &-col {
+  &__row, &__col {
     border: 1px solid #e3e3e3;
   }
 
-  &-row {
+  &__row {
     @include flexbox;
   }
 
-  &-col {
+  &__col {
     @include flex(1);
 
     &--1of6 { @include flex-basis(16.667%); }
@@ -60,18 +61,18 @@
     &--6of6 { @include flex-basis(100%); }
 
     @media (min-width: 600px) {
-      .small-Grid--full > .Grid-cell {
-        flex: 0 0 100%;
-      }
-      .small-Grid--1of2 > .Grid-cell {
-        flex: 0 0 50%
-      }
-      .small-Grid--1of3 > .Grid-cell {
-        flex: 0 0 33.3333%
-      }
-      .small-Grid--1of4 > .Grid-cell {
-        flex: 0 0 25%
-      }
+      &--1of12--tablet { @include flex-basis(8.333%); }
+      &--2of12--tablet { @include flex-basis(16.667%); }
+      &--3of12--tablet { @include flex-basis(25%); }
+      &--4of12--tablet { @include flex-basis(33.333%); }
+      &--5of12--tablet { @include flex-basis(41.667%); }
+      &--6of12--tablet { @include flex-basis(50%); }
+      &--7of12--tablet { @include flex-basis(58.333%); }
+      &--8of12--tablet { @include flex-basis(66.667%); }
+      &--9of12--tablet { @include flex-basis(75%); }
+      &--10of12--tablet { @include flex-basis(83.333%); }
+      &--11of12--tablet { @include flex-basis(91.667%); }
+      &--12of12--tablet { @include flex-basis(100%); }
     }
   }
 
