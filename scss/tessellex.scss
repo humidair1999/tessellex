@@ -77,7 +77,7 @@
 @mixin tx-generate-trad-col-classes-gutters($col-class, $num-cols, $col-width, $gutter-width) {
   @for $i from 1 through $num-cols {
     &#{$col-class}--#{$i}of#{$num-cols} {
-      width: ($col-width * $i + $gutter-width);
+      width: (($col-width * $i) + ($gutter-width * ($i - 1)));
     }
   }
 }
@@ -95,7 +95,7 @@
 @mixin tx-generate-flex-col-classes-gutters($col-class, $num-cols, $col-width, $gutter-width) {
   @for $i from 1 through $num-cols {
     &#{$col-class}--#{$i}of#{$num-cols} {
-      @include flex-basis($col-width * $i + $gutter-width);
+      @include flex-basis(($col-width * $i) + ($gutter-width * ($i - 1)));
     }
   }
 }
@@ -111,7 +111,7 @@
 @mixin tx-generate-flex-col-classes-device-gutters($col-class, $num-cols, $device-name, $col-width, $gutter-width) {
   @for $i from 1 through $num-cols {
     &#{$col-class}--#{$i}of#{$num-cols}--#{$device-name} {
-      @include flex-basis($col-width * $i + $gutter-width);
+      @include flex-basis(($col-width * $i) + ($gutter-width * ($i - 1)));
     }
   }
 }
