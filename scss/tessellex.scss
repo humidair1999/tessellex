@@ -159,7 +159,36 @@ $tx-col-class: '.tx__col';
   // TODO: remove once debugging is complete
   background: #fffbcb;
 
-  .flexbox & {
+  .tx__col {
+    display: block;
+    float: left;
+    // by default, traditional cols will take up 100% width and stack
+    //  vertically
+    width: 100%;
+
+    // TODO: remove once debugging is complete
+    background: #ffc5db;
+
+    /* TRAD */
+    @include tx-generate-trad-col-classes('.tx__col', 6);
+  }
+
+  &.tx__row--gutters .tx__col {
+    margin-left: 4.4%;
+
+    &:first-child {
+      margin-left: 0 !important;
+    }
+
+    /* TRAD W/ GUTTERS */
+    @include tx-generate-trad-col-classes-gutters('.tx__col', 6, 13%, 4.4%);
+  }
+}
+
+// if modernizr detects the browser has flexbox support, all grid functionality
+//  will be overridden with flexbox-based awesomeness
+.flexbox {
+  .tx__row {
     @include flexbox;
 
     &.tx__row--top {
@@ -173,80 +202,53 @@ $tx-col-class: '.tx__col';
     &.tx__row--bottom {
       @include align-items(flex-end);
     }
-  }
-}
 
-.tx__col {
-  display: block;
-  float: left;
-  // by default, traditional cols will take up 100% width and stack
-  //  vertically
-  width: 100%;
+    .tx__col {
+      float: none;
+      width: auto !important;
 
-  // TODO: remove once debugging is complete
-  background: #ffc5db;
+      // by default, flex cols will properly flex to take up available
+      //  space
+      @include flex(1);
 
-  /* TRAD */
-  @include tx-generate-trad-col-classes('.tx__col', 6);
+      @include tx-generate-flex-col-classes('.tx__col', 6);
 
-  .tx__row.tx__row--gutters & {
-    margin-left: 4.4%;
+      @media (min-width: 600px) {
+        @include tx-generate-flex-col-classes-device('.tx__col', 12, tablet);
+      }
 
-    @media (min-width: 600px) {
-      margin-left: 2.36%;
+      @media (min-width: 1024px) {
+        @include tx-generate-flex-col-classes-device('.tx__col', 12, desktop);
+      }
+
+      &.tx__col--top {
+        @include align-self(flex-start);
+      }
+
+      &.tx__col--center {
+        @include align-self(center);
+      }
+
+      &.tx__col--bottom {
+        @include align-self(flex-end);
+      }
     }
 
-    &:first-child {
-      margin-left: 0;
+    &.tx__row--gutters .tx__col {
+      @media (min-width: 600px) {
+        margin-left: 2.36%;
+      }
+
+      @include tx-generate-flex-col-classes-gutters('.tx__col', 6, 13%, 4.4%);
+
+      @media (min-width: 600px) {
+        @include tx-generate-flex-col-classes-device-gutters('.tx__col', 12, tablet, 6.17%, 2.36%);
+      }
+
+      @media (min-width: 1024px) {
+        @include tx-generate-flex-col-classes-device-gutters('.tx__col', 12, desktop, 6.17%, 2.36%);
+      }
     }
-
-    /* TRAD W/ GUTTERS */
-    @include tx-generate-trad-col-classes-gutters('.tx__col', 6, 13%, 4.4%);
-  }
-
-  // if modernizr detects the browser has flexbox support, all grid functionality
-  //  will be overridden with flexbox-based awesomeness
-  .flexbox & {
-    float: none;
-    width: auto;
-
-    // by default, flex cols will properly flex to take up available
-    //  space
-    @include flex(1);
-
-    @include tx-generate-flex-col-classes('.tx__col', 6);
-
-    @media (min-width: 600px) {
-      @include tx-generate-flex-col-classes-device('.tx__col', 12, tablet);
-    }
-
-    @media (min-width: 1024px) {
-      @include tx-generate-flex-col-classes-device('.tx__col', 12, desktop);
-    }
-
-    &.tx__col--top {
-      @include align-self(flex-start);
-    }
-
-    &.tx__col--center {
-      @include align-self(center);
-    }
-
-    &.tx__col--bottom {
-      @include align-self(flex-end);
-    }
-  }
-}
-
-.flexbox .tx__row.tx__row--gutters .tx__col {
-  @include tx-generate-flex-col-classes-gutters('.tx__col', 6, 13%, 4.4%);
-
-  @media (min-width: 600px) {
-    @include tx-generate-flex-col-classes-device-gutters('.tx__col', 12, tablet, 6.17%, 2.36%);
-  }
-
-  @media (min-width: 1024px) {
-    @include tx-generate-flex-col-classes-device-gutters('.tx__col', 12, desktop, 6.17%, 2.36%);
   }
 }
 
