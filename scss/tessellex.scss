@@ -34,20 +34,39 @@
   flex-basis: $value;
 }
 
-@mixin tx-generate-col-classes($col-class, $num-cols, $device-name: null) {
+@mixin tx-generate-traditional-col-classes($col-class, $num-cols) {
+  @for $i from 1 through $num-cols {
+    &#{$col-class}--#{$i}of#{$num-cols} { width: percentage($i / $num-cols); }
+  }
+}
+
+@mixin tx-generate-flex-col-classes($col-class, $num-cols, $device-name: null) {
   @for $i from 1 through $num-cols {
     @if $device-name != null {
-      &#{$col-class}--#{$i}of#{$num-cols}--#{$device-name} { @include flex-basis(percentage($i / $num-cols)); }
+      &#{$col-class}--#{$i}of#{$num-cols}--#{$device-name} {
+        @include flex-basis(percentage($i / $num-cols));
+      }
     }
     @else {
-      &#{$col-class}--#{$i}of#{$num-cols} { @include flex-basis(percentage($i / $num-cols)); }
+      &#{$col-class}--#{$i}of#{$num-cols} {
+        @include flex-basis(percentage($i / $num-cols));
+      }
     }
   }
 }
 
 // variables and config
 
-$is-flexbox-enabled: true;
+$modernizr-flexbox-class: '.flexbox';
+
+// utility and placeholder classes
+
+// https://css-tricks.com/snippets/css/clear-fix/
+%clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
 
 // grid classes
 
@@ -63,24 +82,35 @@ $is-flexbox-enabled: true;
   }
 
   &__row {
-    @include flexbox;
+    @extend %clearfix;
+
+    #{$modernizr-flexbox-class} & {
+      @include flexbox;
+    }
   }
 
   &__col {
+    display: block;
+    float: left;
     width: 100%;
 
-    &#{&}--auto {
+    @include tx-generate-traditional-col-classes('.tx__col', 6);
+
+    #{$modernizr-flexbox-class} & {
+      float: none;
+      width: auto;
+
       @include flex(1);
-    }
 
-    @include tx-generate-col-classes(&, 6);
+      @include tx-generate-flex-col-classes('.tx__col', 6);
 
-    @media (min-width: 600px) {
-      @include tx-generate-col-classes(&, 12, tablet);
-    }
+      @media (min-width: 600px) {
+        @include tx-generate-flex-col-classes('.tx__col', 12, tablet);
+      }
 
-    @media (min-width: 1024px) {
-      @include tx-generate-col-classes(&, 12, desktop);
+      @media (min-width: 1024px) {
+        @include tx-generate-flex-col-classes('.tx__col', 12, desktop);
+      }
     }
   }
 
