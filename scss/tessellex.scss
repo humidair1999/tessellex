@@ -34,6 +34,26 @@
   flex-basis: $value;
 }
 
+@mixin flex-direction($value: row) {
+  @if $value == row-reverse {
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: horizontal;
+  } @else if $value == column {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+  } @else if $value == column-reverse {
+    -webkit-box-direction: reverse;
+    -webkit-box-orient: vertical;
+  } @else {
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+  }
+  -webkit-flex-direction: $value;
+  -moz-flex-direction: $value;
+  -ms-flex-direction: $value;
+  flex-direction: $value;
+}
+
 @mixin align-items($value: stretch) {
   @if $value == flex-start {
     -webkit-box-align: start;
@@ -183,6 +203,10 @@ $tx-col-class: '.tx__col';
     @include tx-generate-trad-col-classes('.tx__col', 6);
   }
 
+  &.tx__row--reverse .tx__col {
+    float: right;
+  }
+
   &.tx__row--gutters .tx__col {
     margin-left: 4.4%;
 
@@ -193,6 +217,15 @@ $tx-col-class: '.tx__col';
     /* TRAD W/ GUTTERS */
     @include tx-generate-trad-col-classes-gutters('.tx__col', 6, 13%, 4.4%);
   }
+
+  &.tx__row--gutters.tx__row--reverse .tx__col {
+    margin-left: 0 !important;
+    margin-right: 4.4%;
+
+    &:first-child {
+      margin-right: 0 !important;
+    }
+  }
 }
 
 // if modernizr detects the browser has flexbox support, all grid functionality
@@ -200,6 +233,10 @@ $tx-col-class: '.tx__col';
 .flexbox {
   .tx__row {
     @include flexbox;
+
+    &.tx__row--reverse {
+      @include flex-direction(row-reverse);
+    }
 
     &.tx__row--top {
       @include align-items(flex-start);
@@ -248,13 +285,23 @@ $tx-col-class: '.tx__col';
       @include tx-generate-flex-col-classes-gutters('.tx__col', 6, 13%, 4.4%);
 
       @media (min-width: 600px) {
-        margin-left: 2.36%;
+        &.tx__col[class$="--tablet"], &.tx__col[class$="--desktop"] {
+          margin-left: 2.36%;
+        }
 
         @include tx-generate-flex-col-classes-device-gutters('.tx__col', 12, tablet, 6.17%, 2.36%);
       }
 
       @media (min-width: 1024px) {
         @include tx-generate-flex-col-classes-device-gutters('.tx__col', 12, desktop, 6.17%, 2.36%);
+      }
+    }
+
+    &.tx__row--gutters.tx__row--reverse .tx__col {
+      @media (min-width: 600px) {
+        &.tx__col[class$="--tablet"], &.tx__col[class$="--desktop"] {
+          margin-right: 2.36%;
+        }
       }
     }
   }
