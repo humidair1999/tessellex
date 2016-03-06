@@ -46,7 +46,8 @@
   display: block;
   float: left;
   width: 100%;
-  background: #ffc5db; }
+  background: #ffc5db;
+  /* TRAD */ }
   .tx__col.tx__col--1of6 {
     width: 16.66667%; }
   .tx__col.tx__col--2of6 {
@@ -59,6 +60,23 @@
     width: 83.33333%; }
   .tx__col.tx__col--6of6 {
     width: 100%; }
+  .tx__row.tx__row--gutters .tx__col {
+    margin-left: 4.4%;
+    /* TRAD W/ GUTTERS */ }
+    .tx__row.tx__row--gutters .tx__col:first-child {
+      margin-left: 0; }
+    .tx__row.tx__row--gutters .tx__col.tx__col--1of6 {
+      width: 17.4%; }
+    .tx__row.tx__row--gutters .tx__col.tx__col--2of6 {
+      width: 30.4%; }
+    .tx__row.tx__row--gutters .tx__col.tx__col--3of6 {
+      width: 43.4%; }
+    .tx__row.tx__row--gutters .tx__col.tx__col--4of6 {
+      width: 56.4%; }
+    .tx__row.tx__row--gutters .tx__col.tx__col--5of6 {
+      width: 69.4%; }
+    .tx__row.tx__row--gutters .tx__col.tx__col--6of6 {
+      width: 82.4%; }
   .flexbox .tx__col {
     float: none;
     width: auto;

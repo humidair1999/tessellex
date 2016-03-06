@@ -64,9 +64,15 @@
   align-self: $value;
 }
 
-@mixin tx-generate-traditional-col-classes($col-class, $num-cols) {
+@mixin tx-generate-trad-col-classes($col-class, $num-cols) {
   @for $i from 1 through $num-cols {
     &#{$col-class}--#{$i}of#{$num-cols} { width: percentage($i / $num-cols); }
+  }
+}
+
+@mixin tx-generate-trad-col-classes-gutters($col-class, $num-cols, $col-width, $gutter-width) {
+  @for $i from 1 through $num-cols {
+    &#{$col-class}--#{$i}of#{$num-cols} { width: ($col-width * $i + $gutter-width); }
   }
 }
 
@@ -155,7 +161,19 @@ $tx-col-class: '.tx__col';
   // TODO: remove once debugging is complete
   background: #ffc5db;
 
-  @include tx-generate-traditional-col-classes('.tx__col', 6);
+  /* TRAD */
+  @include tx-generate-trad-col-classes('.tx__col', 6);
+
+  .tx__row.tx__row--gutters & {
+    margin-left: 4.4%;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    /* TRAD W/ GUTTERS */
+    @include tx-generate-trad-col-classes-gutters('.tx__col', 6, 13%, 4.4%);
+  }
 
   // if modernizr detects the browser has flexbox support, all grid functionality
   //  will be overridden with flexbox-based awesomeness
