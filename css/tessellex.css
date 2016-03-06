@@ -14,6 +14,24 @@
   display: -moz-flex;
   display: -ms-flexbox;
   display: flex; }
+  .flexbox .tx__row.tx__row--top {
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    -webkit-align-items: flex-start;
+    -moz-align-items: flex-start;
+    align-items: flex-start; }
+  .flexbox .tx__row.tx__row--center {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center; }
+  .flexbox .tx__row.tx__row--bottom {
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    -webkit-align-items: flex-end;
+    -moz-align-items: flex-end;
+    align-items: flex-end; }
 .tx__col {
   display: block;
   float: left;

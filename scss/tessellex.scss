@@ -34,6 +34,22 @@
   flex-basis: $value;
 }
 
+@mixin align-items($value: stretch) {
+  @if $value == flex-start {
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+  } @else if $value == flex-end {
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+  } @else {
+    -webkit-box-align: $value;
+    -ms-flex-align: $value;
+  }
+  -webkit-align-items: $value;
+  -moz-align-items: $value;
+  align-items: $value;
+}
+
 @mixin tx-generate-traditional-col-classes($col-class, $num-cols) {
   @for $i from 1 through $num-cols {
     &#{$col-class}--#{$i}of#{$num-cols} { width: percentage($i / $num-cols); }
@@ -86,12 +102,26 @@ $modernizr-flexbox-class: '.flexbox';
 
     #{$modernizr-flexbox-class} & {
       @include flexbox;
+
+      &.tx__row--top {
+        @include align-items(flex-start);
+      }
+
+      &.tx__row--center {
+        @include align-items(center);
+      }
+
+      &.tx__row--bottom {
+        @include align-items(flex-end);
+      }
     }
   }
 
   &__col {
     display: block;
     float: left;
+    // by default, traditional cols will take up 100% width and stack
+    //  vertically
     width: 100%;
 
     @include tx-generate-traditional-col-classes('.tx__col', 6);
@@ -100,6 +130,8 @@ $modernizr-flexbox-class: '.flexbox';
       float: none;
       width: auto;
 
+      // by default, flex cols will properly flex to take up available
+      //  space
       @include flex(1);
 
       @include tx-generate-flex-col-classes('.tx__col', 6);
