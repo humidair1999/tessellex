@@ -64,12 +64,22 @@
   align-self: $value;
 }
 
+// helper functions
+
+@function calculate-width($col-span, $total-num-cols) {
+  @return percentage($col-span / $total-num-cols);
+}
+
+@function calculate-width-gutters($col-width, $col-span, $gutter-width) {
+  @return (($col-width * $col-span) + ($gutter-width * ($col-span - 1)));
+}
+
 // traditional width-based grid generators
 
 @mixin tx-generate-trad-col-classes($col-class, $num-cols) {
   @for $i from 1 through $num-cols {
     &#{$col-class}--#{$i}of#{$num-cols} {
-      width: percentage($i / $num-cols);
+      width: calculate-width($i, $num-cols);
     }
   }
 }
@@ -77,7 +87,7 @@
 @mixin tx-generate-trad-col-classes-gutters($col-class, $num-cols, $col-width, $gutter-width) {
   @for $i from 1 through $num-cols {
     &#{$col-class}--#{$i}of#{$num-cols} {
-      width: (($col-width * $i) + ($gutter-width * ($i - 1)));
+      width: calculate-width-gutters($col-width, $i, $gutter-width);
     }
   }
 }
@@ -87,7 +97,7 @@
 @mixin tx-generate-flex-col-classes($col-class, $num-cols) {
   @for $i from 1 through $num-cols {
     &#{$col-class}--#{$i}of#{$num-cols} {
-      @include flex-basis(percentage($i / $num-cols));
+      @include flex-basis(calculate-width($i, $num-cols));
     }
   }
 }
@@ -95,7 +105,7 @@
 @mixin tx-generate-flex-col-classes-gutters($col-class, $num-cols, $col-width, $gutter-width) {
   @for $i from 1 through $num-cols {
     &#{$col-class}--#{$i}of#{$num-cols} {
-      @include flex-basis(($col-width * $i) + ($gutter-width * ($i - 1)));
+      @include flex-basis(calculate-width-gutters($col-width, $i, $gutter-width));
     }
   }
 }
@@ -103,7 +113,7 @@
 @mixin tx-generate-flex-col-classes-device($col-class, $num-cols, $device-name) {
   @for $i from 1 through $num-cols {
     &#{$col-class}--#{$i}of#{$num-cols}--#{$device-name} {
-      @include flex-basis(percentage($i / $num-cols));
+      @include flex-basis(calculate-width($i, $num-cols));
     }
   }
 }
@@ -111,7 +121,7 @@
 @mixin tx-generate-flex-col-classes-device-gutters($col-class, $num-cols, $device-name, $col-width, $gutter-width) {
   @for $i from 1 through $num-cols {
     &#{$col-class}--#{$i}of#{$num-cols}--#{$device-name} {
-      @include flex-basis(($col-width * $i) + ($gutter-width * ($i - 1)));
+      @include flex-basis(calculate-width-gutters($col-width, $i, $gutter-width));
     }
   }
 }
@@ -235,13 +245,11 @@ $tx-col-class: '.tx__col';
     }
 
     &.tx__row--gutters .tx__col {
-      @media (min-width: 600px) {
-        margin-left: 2.36%;
-      }
-
       @include tx-generate-flex-col-classes-gutters('.tx__col', 6, 13%, 4.4%);
 
       @media (min-width: 600px) {
+        margin-left: 2.36%;
+
         @include tx-generate-flex-col-classes-device-gutters('.tx__col', 12, tablet, 6.17%, 2.36%);
       }
 
