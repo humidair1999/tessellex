@@ -209,6 +209,21 @@
         -moz-flex-basis: 100%;
         -ms-flex-preferred-size: 100%;
         flex-basis: 100%; } }
+    .flexbox .tx__col.tx__col--top {
+      -webkit-align-self: flex-start;
+      -moz-align-self: flex-start;
+      -ms-flex-item-align: start;
+      align-self: flex-start; }
+    .flexbox .tx__col.tx__col--center {
+      -webkit-align-self: center;
+      -moz-align-self: center;
+      -ms-flex-item-align: center;
+      align-self: center; }
+    .flexbox .tx__col.tx__col--bottom {
+      -webkit-align-self: flex-end;
+      -moz-align-self: flex-end;
+      -ms-flex-item-align: end;
+      align-self: flex-end; }
 .tx--content-centered {
   text-align: center; }
 
