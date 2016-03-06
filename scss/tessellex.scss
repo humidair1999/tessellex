@@ -148,7 +148,27 @@
 
 // variables and config
 
+$breakpoints: (
+  tablet: 600px,
+  desktop: 1024px,
+  wide: 1440px
+);
 
+$container-margins: (
+  mobile: 16px,
+  tablet: 32px
+);
+
+$column-and-gutter-sizes: (
+  mobile: (13%, 4.4%),
+  tablet: (6.17%, 2.36%)
+);
+
+$mobile-column-size: nth(map-get($column-and-gutter-sizes, mobile), 1);
+$mobile-gutter-size: nth(map-get($column-and-gutter-sizes, mobile), 2);
+
+$tablet-column-size: nth(map-get($column-and-gutter-sizes, tablet), 1);
+$tablet-gutter-size: nth(map-get($column-and-gutter-sizes, tablet), 2);
 
 // utility and placeholder classes
 
@@ -162,16 +182,16 @@
 // grid classes
 
 .tx__container {
-  max-width: 1440px;
+  max-width: map-get($breakpoints, wide);
   margin: 0 auto;
-
-  padding: 0 16px;
 
   // TODO: remove once debugging is complete
   background: #d2f1fc;
 
-  @media (min-width: 600px) {
-    padding: 0 32px;
+  padding: 0 map-get($container-margins, mobile);
+
+  @media (min-width: map-get($breakpoints, tablet)) {
+    padding: 0 map-get($container-margins, tablet);
   }
 }
 
@@ -205,19 +225,22 @@
   }
 
   &.tx__row--gutters .tx__col {
-    margin-left: 4.4%;
+    margin-left: $mobile-gutter-size;
 
     &:first-child {
       margin-left: 0 !important;
     }
 
     /* TRAD W/ GUTTERS */
-    @include tx-generate-trad-col-classes-gutters(6, 13%, 4.4%);
+    @include tx-generate-trad-col-classes-gutters(
+      6,
+      $mobile-column-size,
+      $mobile-gutter-size);
   }
 
   &.tx__row--gutters.tx__row--reverse .tx__col {
     margin-left: 0 !important;
-    margin-right: 4.4%;
+    margin-right: $mobile-gutter-size;
 
     &:first-child {
       margin-right: 0 !important;
@@ -257,11 +280,11 @@
 
       @include tx-generate-flex-col-classes(6);
 
-      @media (min-width: 600px) {
+      @media (min-width: map-get($breakpoints, tablet)) {
         @include tx-generate-flex-col-classes-device(12, tablet);
       }
 
-      @media (min-width: 1024px) {
+      @media (min-width: map-get($breakpoints, desktop)) {
         @include tx-generate-flex-col-classes-device(12, desktop);
       }
 
@@ -279,25 +302,36 @@
     }
 
     &.tx__row--gutters .tx__col {
-      @include tx-generate-flex-col-classes-gutters(6, 13%, 4.4%);
+      @include tx-generate-flex-col-classes-gutters(
+        6,
+        $mobile-column-size,
+        $mobile-gutter-size);
 
-      @media (min-width: 600px) {
+      @media (min-width: map-get($breakpoints, tablet)) {
         &.tx__col[class$="--tablet"], &.tx__col[class$="--desktop"] {
-          margin-left: 2.36%;
+          margin-left: $tablet-gutter-size;
         }
 
-        @include tx-generate-flex-col-classes-device-gutters(12, tablet, 6.17%, 2.36%);
+        @include tx-generate-flex-col-classes-device-gutters(
+          12,
+          tablet,
+          $tablet-column-size,
+          $tablet-gutter-size);
       }
 
-      @media (min-width: 1024px) {
-        @include tx-generate-flex-col-classes-device-gutters(12, desktop, 6.17%, 2.36%);
+      @media (min-width: map-get($breakpoints, desktop)) {
+        @include tx-generate-flex-col-classes-device-gutters(
+          12,
+          desktop,
+          $tablet-column-size,
+          $tablet-gutter-size);
       }
     }
 
     &.tx__row--gutters.tx__row--reverse .tx__col {
-      @media (min-width: 600px) {
+      @media (min-width: map-get($breakpoints, tablet)) {
         &.tx__col[class$="--tablet"], &.tx__col[class$="--desktop"] {
-          margin-right: 2.36%;
+          margin-right: $tablet-gutter-size;
         }
       }
     }
