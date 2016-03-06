@@ -103,95 +103,96 @@ $tx-col-class: '.tx__col';
 
 // grid classes
 
-.tx {
-  &__container {
-    max-width: 1024px;
-    margin: 0 auto;
+.tx__container {
+  max-width: 1024px;
+  margin: 0 auto;
 
-    padding: 0 16px;
+  padding: 0 16px;
 
-    // TODO: remove once debugging is complete
-    background: #d2f1fc;
+  // TODO: remove once debugging is complete
+  background: #d2f1fc;
+
+  @media (min-width: 600px) {
+    padding: 0 32px;
+  }
+}
+
+.tx__row, .tx__col {
+  // TODO: remove once debugging is complete
+  border: 1px solid #e3e3e3;
+}
+
+.tx__row {
+  @extend %clearfix;
+
+  // TODO: remove once debugging is complete
+  background: #fffbcb;
+
+  .flexbox & {
+    @include flexbox;
+
+    &.tx__row--top {
+      @include align-items(flex-start);
+    }
+
+    &.tx__row--top--center {
+      @include align-items(center);
+    }
+
+    &.tx__row--top--bottom {
+      @include align-items(flex-end);
+    }
+  }
+}
+
+.tx__col {
+  display: block;
+  float: left;
+  // by default, traditional cols will take up 100% width and stack
+  //  vertically
+  width: 100%;
+
+  // TODO: remove once debugging is complete
+  background: #ffc5db;
+
+  @include tx-generate-traditional-col-classes('.tx__col', 6);
+
+  // if modernizr detects the browser has flexbox support, all grid functionality
+  //  will be overridden with flexbox-based awesomeness
+  .flexbox & {
+    float: none;
+    width: auto;
+
+    // by default, flex cols will properly flex to take up available
+    //  space
+    @include flex(1);
+
+    @include tx-generate-flex-col-classes($tx-col-class, 6);
 
     @media (min-width: 600px) {
-      padding: 0 32px;
+      @include tx-generate-flex-col-classes($tx-col-class, 12, tablet);
+    }
+
+    @media (min-width: 1024px) {
+      @include tx-generate-flex-col-classes($tx-col-class, 12, desktop);
+    }
+
+    &.tx__col--top {
+      @include align-self(flex-start);
+    }
+
+    &.tx__col--center {
+      @include align-self(center);
+    }
+
+    &.tx__col--bottom {
+      @include align-self(flex-end);
     }
   }
+}
 
-  &__row, &__col {
-    border: 1px solid #e3e3e3;
-  }
+// general modifier classes to be used on any grid unit
 
-  &__row {
-    @extend %clearfix;
-
-    // TODO: remove once debugging is complete
-    background: #fffbcb;
-
-    #{$modernizr-flexbox-class} & {
-      @include flexbox;
-
-      &#{$tx-row-class}--top {
-        @include align-items(flex-start);
-      }
-
-      &#{$tx-row-class}--center {
-        @include align-items(center);
-      }
-
-      &#{$tx-row-class}--bottom {
-        @include align-items(flex-end);
-      }
-    }
-  }
-
-  &__col {
-    display: block;
-    float: left;
-    // by default, traditional cols will take up 100% width and stack
-    //  vertically
-    width: 100%;
-
-    // TODO: remove once debugging is complete
-    background: #ffc5db;
-
-    @include tx-generate-traditional-col-classes('.tx__col', 6);
-
-    // if modernizr detects the browser has flexbox support, all grid functionality
-    //  will be overridden with flexbox-based awesomeness
-    #{$modernizr-flexbox-class} & {
-      float: none;
-      width: auto;
-
-      // by default, flex cols will properly flex to take up available
-      //  space
-      @include flex(1);
-
-      @include tx-generate-flex-col-classes($tx-col-class, 6);
-
-      @media (min-width: 600px) {
-        @include tx-generate-flex-col-classes($tx-col-class, 12, tablet);
-      }
-
-      @media (min-width: 1024px) {
-        @include tx-generate-flex-col-classes($tx-col-class, 12, desktop);
-      }
-
-      &#{$tx-col-class}--top {
-        @include align-self(flex-start);
-      }
-
-      &#{$tx-col-class}--center {
-        @include align-self(center);
-      }
-
-      &#{$tx-col-class}--bottom {
-        @include align-self(flex-end);
-      }
-    }
-  }
-
-  &--content-centered {
-    text-align: center;
-  }
+.tx--content-centered {
+  text-align: center;
 }
