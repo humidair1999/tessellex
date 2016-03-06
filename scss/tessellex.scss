@@ -96,17 +96,17 @@
 
 // traditional width-based grid generators
 
-@mixin tx-generate-trad-col-classes($col-class, $num-cols) {
+@mixin tx-generate-trad-col-classes($num-cols) {
   @for $i from 1 through $num-cols {
-    &#{$col-class}--#{$i}of#{$num-cols} {
+    &.tx__col--#{$i}of#{$num-cols} {
       width: calculate-width($i, $num-cols);
     }
   }
 }
 
-@mixin tx-generate-trad-col-classes-gutters($col-class, $num-cols, $col-width, $gutter-width) {
+@mixin tx-generate-trad-col-classes-gutters($num-cols, $col-width, $gutter-width) {
   @for $i from 1 through $num-cols {
-    &#{$col-class}--#{$i}of#{$num-cols} {
+    &.tx__col--#{$i}of#{$num-cols} {
       width: calculate-width-gutters($col-width, $i, $gutter-width);
     }
   }
@@ -114,33 +114,33 @@
 
 // flexbox-based grid generators
 
-@mixin tx-generate-flex-col-classes($col-class, $num-cols) {
+@mixin tx-generate-flex-col-classes($num-cols) {
   @for $i from 1 through $num-cols {
-    &#{$col-class}--#{$i}of#{$num-cols} {
+    &.tx__col--#{$i}of#{$num-cols} {
       @include flex-basis(calculate-width($i, $num-cols));
     }
   }
 }
 
-@mixin tx-generate-flex-col-classes-gutters($col-class, $num-cols, $col-width, $gutter-width) {
+@mixin tx-generate-flex-col-classes-gutters($num-cols, $col-width, $gutter-width) {
   @for $i from 1 through $num-cols {
-    &#{$col-class}--#{$i}of#{$num-cols} {
+    &.tx__col--#{$i}of#{$num-cols} {
       @include flex-basis(calculate-width-gutters($col-width, $i, $gutter-width));
     }
   }
 }
 
-@mixin tx-generate-flex-col-classes-device($col-class, $num-cols, $device-name) {
+@mixin tx-generate-flex-col-classes-device($num-cols, $device-name) {
   @for $i from 1 through $num-cols {
-    &#{$col-class}--#{$i}of#{$num-cols}--#{$device-name} {
+    &.tx__col--#{$i}of#{$num-cols}--#{$device-name} {
       @include flex-basis(calculate-width($i, $num-cols));
     }
   }
 }
 
-@mixin tx-generate-flex-col-classes-device-gutters($col-class, $num-cols, $device-name, $col-width, $gutter-width) {
+@mixin tx-generate-flex-col-classes-device-gutters($num-cols, $device-name, $col-width, $gutter-width) {
   @for $i from 1 through $num-cols {
-    &#{$col-class}--#{$i}of#{$num-cols}--#{$device-name} {
+    &.tx__col--#{$i}of#{$num-cols}--#{$device-name} {
       @include flex-basis(calculate-width-gutters($col-width, $i, $gutter-width));
     }
   }
@@ -148,10 +148,7 @@
 
 // variables and config
 
-$modernizr-flexbox-class: '.flexbox';
 
-$tx-row-class: '.tx__row';
-$tx-col-class: '.tx__col';
 
 // utility and placeholder classes
 
@@ -165,7 +162,7 @@ $tx-col-class: '.tx__col';
 // grid classes
 
 .tx__container {
-  max-width: 1024px;
+  max-width: 1440px;
   margin: 0 auto;
 
   padding: 0 16px;
@@ -200,7 +197,7 @@ $tx-col-class: '.tx__col';
     background: #ffc5db;
 
     /* TRAD */
-    @include tx-generate-trad-col-classes('.tx__col', 6);
+    @include tx-generate-trad-col-classes(6);
   }
 
   &.tx__row--reverse .tx__col {
@@ -215,7 +212,7 @@ $tx-col-class: '.tx__col';
     }
 
     /* TRAD W/ GUTTERS */
-    @include tx-generate-trad-col-classes-gutters('.tx__col', 6, 13%, 4.4%);
+    @include tx-generate-trad-col-classes-gutters(6, 13%, 4.4%);
   }
 
   &.tx__row--gutters.tx__row--reverse .tx__col {
@@ -258,14 +255,14 @@ $tx-col-class: '.tx__col';
       //  space
       @include flex(1);
 
-      @include tx-generate-flex-col-classes('.tx__col', 6);
+      @include tx-generate-flex-col-classes(6);
 
       @media (min-width: 600px) {
-        @include tx-generate-flex-col-classes-device('.tx__col', 12, tablet);
+        @include tx-generate-flex-col-classes-device(12, tablet);
       }
 
       @media (min-width: 1024px) {
-        @include tx-generate-flex-col-classes-device('.tx__col', 12, desktop);
+        @include tx-generate-flex-col-classes-device(12, desktop);
       }
 
       &.tx__col--top {
@@ -282,18 +279,18 @@ $tx-col-class: '.tx__col';
     }
 
     &.tx__row--gutters .tx__col {
-      @include tx-generate-flex-col-classes-gutters('.tx__col', 6, 13%, 4.4%);
+      @include tx-generate-flex-col-classes-gutters(6, 13%, 4.4%);
 
       @media (min-width: 600px) {
         &.tx__col[class$="--tablet"], &.tx__col[class$="--desktop"] {
           margin-left: 2.36%;
         }
 
-        @include tx-generate-flex-col-classes-device-gutters('.tx__col', 12, tablet, 6.17%, 2.36%);
+        @include tx-generate-flex-col-classes-device-gutters(12, tablet, 6.17%, 2.36%);
       }
 
       @media (min-width: 1024px) {
-        @include tx-generate-flex-col-classes-device-gutters('.tx__col', 12, desktop, 6.17%, 2.36%);
+        @include tx-generate-flex-col-classes-device-gutters(12, desktop, 6.17%, 2.36%);
       }
     }
 
