@@ -89,6 +89,9 @@
 
 $modernizr-flexbox-class: '.flexbox';
 
+$tx-row-class: '.tx__row';
+$tx-col-class: '.tx__col';
+
 // utility and placeholder classes
 
 // https://css-tricks.com/snippets/css/clear-fix/
@@ -100,11 +103,19 @@ $modernizr-flexbox-class: '.flexbox';
 
 // grid classes
 
-// TODO: should all grid components (container/row/col) be __?
 .tx {
   &__container {
     max-width: 1024px;
     margin: 0 auto;
+
+    padding: 0 16px;
+
+    // TODO: remove once debugging is complete
+    background: #d2f1fc;
+
+    @media (min-width: 600px) {
+      padding: 0 32px;
+    }
   }
 
   &__row, &__col {
@@ -114,18 +125,21 @@ $modernizr-flexbox-class: '.flexbox';
   &__row {
     @extend %clearfix;
 
+    // TODO: remove once debugging is complete
+    background: #fffbcb;
+
     #{$modernizr-flexbox-class} & {
       @include flexbox;
 
-      &.tx__row--top {
+      &#{$tx-row-class}--top {
         @include align-items(flex-start);
       }
 
-      &.tx__row--center {
+      &#{$tx-row-class}--center {
         @include align-items(center);
       }
 
-      &.tx__row--bottom {
+      &#{$tx-row-class}--bottom {
         @include align-items(flex-end);
       }
     }
@@ -138,8 +152,13 @@ $modernizr-flexbox-class: '.flexbox';
     //  vertically
     width: 100%;
 
+    // TODO: remove once debugging is complete
+    background: #ffc5db;
+
     @include tx-generate-traditional-col-classes('.tx__col', 6);
 
+    // if modernizr detects the browser has flexbox support, all grid functionality
+    //  will be overridden with flexbox-based awesomeness
     #{$modernizr-flexbox-class} & {
       float: none;
       width: auto;
@@ -148,25 +167,25 @@ $modernizr-flexbox-class: '.flexbox';
       //  space
       @include flex(1);
 
-      @include tx-generate-flex-col-classes('.tx__col', 6);
+      @include tx-generate-flex-col-classes($tx-col-class, 6);
 
       @media (min-width: 600px) {
-        @include tx-generate-flex-col-classes('.tx__col', 12, tablet);
+        @include tx-generate-flex-col-classes($tx-col-class, 12, tablet);
       }
 
       @media (min-width: 1024px) {
-        @include tx-generate-flex-col-classes('.tx__col', 12, desktop);
+        @include tx-generate-flex-col-classes($tx-col-class, 12, desktop);
       }
 
-      &.tx__col--top {
+      &#{$tx-col-class}--top {
         @include align-self(flex-start);
       }
 
-      &.tx__col--center {
+      &#{$tx-col-class}--center {
         @include align-self(center);
       }
 
-      &.tx__col--bottom {
+      &#{$tx-col-class}--bottom {
         @include align-self(flex-end);
       }
     }
