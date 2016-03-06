@@ -174,9 +174,9 @@ $tablet-gutter-size: nth(map-get($column-and-gutter-sizes, tablet), 2);
 
 // https://css-tricks.com/snippets/css/clear-fix/
 %clearfix:after {
-    content: "";
-    display: table;
-    clear: both;
+  content: "";
+  display: table;
+  clear: both;
 }
 
 // grid classes
@@ -288,6 +288,10 @@ $tablet-gutter-size: nth(map-get($column-and-gutter-sizes, tablet), 2);
         @include tx-generate-flex-col-classes-device(12, desktop);
       }
 
+      @media (min-width: map-get($breakpoints, wide)) {
+        @include tx-generate-flex-col-classes-device(12, wide);
+      }
+
       &.tx__col--top {
         @include align-self(flex-start);
       }
@@ -307,8 +311,12 @@ $tablet-gutter-size: nth(map-get($column-and-gutter-sizes, tablet), 2);
         $mobile-column-size,
         $mobile-gutter-size);
 
+      // duplicate this @media query (remember to add your device suffix to
+      //  the margin-left declaration) for each device breakpoint size
       @media (min-width: map-get($breakpoints, tablet)) {
-        &.tx__col[class$="--tablet"], &.tx__col[class$="--desktop"] {
+        &.tx__col[class$="--tablet"],
+        &.tx__col[class$="--desktop"],
+        &.tx__col[class$="--wide"] {
           margin-left: $tablet-gutter-size;
         }
 
@@ -326,11 +334,23 @@ $tablet-gutter-size: nth(map-get($column-and-gutter-sizes, tablet), 2);
           $tablet-column-size,
           $tablet-gutter-size);
       }
+
+      @media (min-width: map-get($breakpoints, wide)) {
+        @include tx-generate-flex-col-classes-device-gutters(
+          12,
+          wide,
+          $tablet-column-size,
+          $tablet-gutter-size);
+      }
     }
 
     &.tx__row--gutters.tx__row--reverse .tx__col {
+      // duplicate this @media query (remember to add your device suffix to
+      //  the margin-left declaration) for each device breakpoint size
       @media (min-width: map-get($breakpoints, tablet)) {
-        &.tx__col[class$="--tablet"], &.tx__col[class$="--desktop"] {
+        &.tx__col[class$="--tablet"],
+        &.tx__col[class$="--desktop"],
+        &.tx__col[class$="--wide"] {
           margin-right: $tablet-gutter-size;
         }
       }

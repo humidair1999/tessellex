@@ -9,3 +9,9 @@ html {
   -moz-box-sizing: inherit;
   box-sizing: inherit;
 }
+
+h1 {
+  margin: 1em;
+
+  font-size: 2em;
+}
