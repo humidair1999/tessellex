@@ -135,11 +135,11 @@ $tx-col-class: '.tx__col';
       @include align-items(flex-start);
     }
 
-    &.tx__row--top--center {
+    &.tx__row--center {
       @include align-items(center);
     }
 
-    &.tx__row--top--bottom {
+    &.tx__row--bottom {
       @include align-items(flex-end);
     }
   }
