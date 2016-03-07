@@ -18,3 +18,7 @@ counterpart. See the feature comparison table below.
 Tessellex relies on modernizr to feature-detect browsers that are flexbox-ready.
 On these browsers, a `flexbox` class will be added to your root `<html>` element,
 which will let Tessellex know it's cleared to work its magic.
+
+If you're only interested in tailoring your grid to newer browsers, you could also
+just omit modernizr and make sure one of your root elements (`html`, `body`, or a
+similar page container) possess the `flexbox` class.
