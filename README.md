@@ -1,6 +1,6 @@
 # tessellex
 
-A responsive, mobile-first, progressively-enhanced CSS2/CSS3 grid
+A responsive, mobile-first, progressively-enhanced, Sass-based CSS2/CSS3 grid
 
 ### design
 
