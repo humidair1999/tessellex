@@ -21,4 +21,13 @@ which will let Tessellex know it's cleared to work its magic.
 
 If you're only interested in tailoring your grid to newer browsers, you could also
 just omit modernizr and make sure one of your root elements (`html`, `body`, or a
-similar page container) possess the `flexbox` class.
+similar page container) possesses the `flexbox` class.
+
+### feature comparison table
+
+| Feature | Traditional grid | Flexbox grid |
+| --- | :---: | :---: |
+| # columns | 6 | 6/12 |
+| rtl/reverse | &#10004; | &#10004; |
+| gutters | &#10004; | &#10004; |
+| vertical alignment |   | &#10004; |
