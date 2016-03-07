@@ -32,3 +32,10 @@ similar page container) possesses the `flexbox` class.
 | rtl/reverse | &#10004; | &#10004; |
 | gutters | &#10004; | &#10004; |
 | vertical alignment |   | &#10004; |
+
+### upcoming features
+
+- Column ordering
+- Offsets/gaps
+- Nesting (does this work already?)
+- Justification
