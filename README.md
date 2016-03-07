@@ -39,3 +39,4 @@ similar page container) possesses the `flexbox` class.
 - Offsets/gaps
 - Nesting (does this work already?)
 - Justification
+- Choose between fixed-width cols (px) and fluid cols (%)
